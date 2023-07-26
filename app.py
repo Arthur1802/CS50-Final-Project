@@ -78,6 +78,8 @@ def register():
                                  ''', name, email, generate_password_hash(password), fBirthDate)
         
         session['user_id'] = new_session
+
+        return redirect('/')
         
     else:
         return render_template('register.html')
