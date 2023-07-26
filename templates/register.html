@@ -5,10 +5,15 @@
 {% endblock %}
 
 {% block main %}
-    <h1>Register</h1>
+    <div class = "mb-3">
+        <h1>Register</h1>
+    </div>
     <form action = "/register" method = "POST">
         <div class = "mb-3">
-            <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "username" placeholder = "Username" type = "text">
+            <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "name" placeholder = "Name" type = "text">
+        </div>
+        <div class = "mb-3">
+            <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "email" placeholder = "Email" type = "email">
         </div>
         <div class = "mb-3">
             <input autocomplete = "off" class = "form-control mx-auto w-auto" name = "password" placeholder = "Password" type = "password">
