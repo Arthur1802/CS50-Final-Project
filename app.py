@@ -34,7 +34,7 @@ def index():
                             WHERE user_id = ?
                             ''', user_id)
     
-    return render_template('task.html', tasks = user_tasks)
+    return render_template('index.html', tasks = user_tasks)
 
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -108,6 +108,14 @@ def login():
             return apology('invalid email and/or password', 403)
 
         session['user_id'] = rows[0]['id']
+
+        user_name = db.execute('''
+                               SELECT name
+                               FROM users
+                               WHERE id = ?
+                               ''', session['user_id'])
+        
+        flash(f"Welcome {user_name[0]['name']}!")
 
         return redirect('/')
 
