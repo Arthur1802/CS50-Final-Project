@@ -49,7 +49,10 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirmation = request.form.get('confirmation')
-        birthDate = request.form.get('birthDate')
+        day = request.form.get('day')
+        month = request.form.get('month')
+        year = request.form.get('year')
+        birthDate = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
         fBirthDate = datetime.strptime(birthDate, '%Y-%m-%d').date()
 
         if not name:
