@@ -10,19 +10,49 @@
     </div>
     <form action = "/register" method = "POST">
         <div class = "mb-3">
-            <input autocomplete = "off" autofocus class = "form-control mx-auto" style = "width: 25vw;" name = "name" placeholder = "Name" type = "text">
+            <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "name" placeholder = "Name" type = "text">
         </div>
         <div class = "mb-3">
-            <input autocomplete = "off" autofocus class = "form-control mx-auto" style = "width: 25vw;" name = "email" placeholder = "Email" type = "email">
+            <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "email" placeholder = "Email" type = "email">
         </div>
         <div class = "mb-3">
-            <input autocomplete = "off" class = "form-control mx-auto" style = "width: 25vw;" name = "birthDate" placeholder = "Date of birth (MM/DD/YYYY)" type = "text">
+            <input autocomplete = "off" class = "form-control mx-auto w-auto" name = "password" placeholder = "Password" type = "password">
         </div>
         <div class = "mb-3">
-            <input autocomplete = "off" class = "form-control mx-auto" style = "width: 25vw;" name = "password" placeholder = "Password" type = "password">
+            <input autocomplete = "off" class = "form-control mx-auto w-auto" name = "confirmation" placeholder = "Confirm your password" type = "password">
         </div>
         <div class = "mb-3">
-            <input autocomplete = "off" class = "form-control mx-auto" style = "width: 25vw;" name = "confirmation" placeholder = "Confirm your password" type = "password">
+            <h2>Birth Date</h2>
+            <div class = "form-group">
+                <div class = "container" style = "width: 24vw; margin: 0 auto;">
+                    <div class = "row">
+                        <div class = "col-sm">
+                            <select class = "form-select" name = "day" placeholder = "Day" style = "width: 6vw; margin: 0 auto;">
+                                <option value = "" selected>Day</option>
+                                {% for i in range(1, 32) %}
+                                    <option value = "{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class = "col-sm">
+                            <select class = "form-select" name = "month" placeholder = "Month" style = "width: 6vw; margin: 0 auto;">
+                                <option value = "" selected>Month</option>
+                                {% for i in range(1, 13) %}
+                                    <option value = "{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class = "col-sm">
+                            <select class = "form-select" name = "year" placeholder = "Year" style = "width: 6vw; margin: 0 auto;">
+                                <option value = "" selected>Year</option>
+                                {% for i in range(2023, 1900, -1) %}
+                                    <option value = "{{ i }}">{{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class = "mb-3">
             <button class = "btn btn-primary" type = "submit">Register</button>
