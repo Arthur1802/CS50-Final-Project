@@ -1,14 +1,72 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Home
+    Tasks
 {% endblock %}
 
 {% block main %}
-    <table class = "table table-striped">
-        <thead>
-            <tr scope = "col"></tr>
-            <tr scope = "col"></tr>
-            <tr scope = "col"></tr>
-        </thead>
+    <div class = "mb-3">
+        <h1>Tasks</h1>
+    </div>
+    <div class = "mb-3">
+        {% if tasks %}
+        <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+            <thead>
+                <th scope = "col">Title</th>
+                <th scope = "col">Created on</th>
+                <th scope = "col">Start date</th>
+                <th scope = "col">End date</th>
+                <th scope = "col">Description</th>
+                <th scope = "col">Status</th>
+            </thead>
+            <tbody>
+                    {% for task in tasks %}
+                        <tr>
+                            <td>{{task['title']}}</td>
+                            <td>{{task['dateCreation']}}</td>
+                            <td>{{task['dateStart']}}</td>
+                            <td>{{task['dateEnd']}}</td>
+                            <td>{{task['description']}}</td>
+                            <td>{{task['status']}}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+        {% else %}
+        <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+            <thead>
+                <th scope = "col">Title</th>
+                <th scope = "col">Created on</th>
+                <th scope = "col">Start date</th>
+                <th scope = "col">End date</th>
+                <th scope = "col">Description</th>
+                <th scope = "col">Status</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> -- </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                    <td> -- </td>
+                </tr>
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+    <div class = "mb-3">
+        <div class = "container" style = "width: 25vw; margin: 0 auto;">
+            <div class = "row">
+                <div class = "col-sm">
+                    <a class = "btn btn-primary" href = "/addTask">Add task</a>
+                </div>
+                <div class = "col-sm">
+                    <a class = "btn btn-primary" href = "/editTask">Edit task</a>
+                </div>
+                <div class="col-sm">
+                    <a class = "btn btn-primary" href = "/deleteTask">Delete task</a>
+                </div>
+            </div>
+        </div>
 {% endblock %}

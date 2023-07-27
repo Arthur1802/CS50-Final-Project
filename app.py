@@ -15,9 +15,6 @@ Session(app)
 
 db = SQL('sqlite:///tasktracker.db')
 
-# conn = sqlite3.connect('tasktracker.db')
-# db = conn.cursor()
-
 @app.after_request
 def after_request(response):
     response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
@@ -32,13 +29,12 @@ def index():
 
     user_id = session['user_id']
 
-    user_tasks = db.execute('''
-                            SELECT *
+    user_tasks = db.execute('''SELECT *
                             FROM tasks
                             WHERE user_id = ?
                             ''', user_id)
     
-    return render_template('index.html', user_tasks = user_tasks)
+    return render_template('task.html', tasks = user_tasks)
 
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -126,3 +122,35 @@ def logout():
 
     return redirect('/')
 
+
+@app.route('/addTask', methods = ['GET', 'POST'])
+@login_required
+def addTask():
+
+    if request.method == 'POST':
+        return apology('TODO')
+
+    else:
+        return render_template('addTask.html')
+    
+
+@app.route('/editTask', methods = ['GET', 'POST'])
+@login_required
+def editTask():
+    
+        if request.method == 'POST':
+            return apology('TODO')
+    
+        else:
+            return render_template('editTask.html')
+        
+
+@app.route('/deleteTask', methods = ['GET', 'POST'])
+@login_required
+def deleteTask():
+        
+            if request.method == 'POST':
+                return apology('TODO')
+        
+            else:
+                return render_template('deleteTask.html')
