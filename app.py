@@ -79,6 +79,8 @@ def register():
         
         session['user_id'] = new_session
 
+        flash(f'Wecome {name}')
+
         return redirect('/')
         
     else:
@@ -162,3 +164,22 @@ def deleteTask():
         
             else:
                 return render_template('deleteTask.html')
+            
+
+@app.route('/profile', methods = ['GET', 'POST'])
+@login_required
+def profile():
+        
+        user_id = session['user_id']
+        
+        if request.method == 'POST':
+            return apology('TODO')
+        
+        else:
+            user_profile = db.execute('''
+                                      SELECT *
+                                      FROM users
+                                      WHERE id = ?
+                                      ''', user_id)
+            
+            return render_template('profile.html', profile = user_profile)

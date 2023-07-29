@@ -1,14 +1,33 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Profile: {{username}}
+    Profile: {{p['username']}}
 {% endblock %}
 
 {% block main %}
-    <div class = "mb-3">
-        <h1>{{username}}</h1>
-    </div>
-    <div class = "mb-3">
-        
-    </div>
+    {% for p in profile %}
+        <form action = "/profile" method = "POST">
+            <div class = "container">
+                <div class = "row">
+                    <div class = "mb-3">
+                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
+                            <p>Name:</p>
+                            <input autocomplete = "off" autofocus class = "form-control mw-auto w-auto" name = "newName" type = "text">
+                        </div>
+                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
+                            <p>Email:</p>
+                            <input autocomplete = "off" class = "form-control mw-auto w-auto" name = "" type = "email">
+                        </div>
+                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
+                            <p>Password:</p>
+                            <input autocomplete = "off" class = "form-control mw-auto w-auto" name = "" type = "password">
+                        </div>
+                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
+                            <!-- TO-DO -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    {% endfor %}
 {% endblock %}
