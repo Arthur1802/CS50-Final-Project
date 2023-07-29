@@ -79,7 +79,7 @@ def register():
         
         session['user_id'] = new_session
 
-        flash(f'Wecome {name}')
+        flash(f'Welcome {name}')
 
         return redirect('/')
         
