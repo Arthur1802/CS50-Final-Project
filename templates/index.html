@@ -22,7 +22,8 @@
             <tbody>
                     {% for task in tasks %}
                         <tr>
-                            <td>{{task['title']}}</td>
+                            <td><input class = "form-check-input" id = "{{ task['name'] }}" type = "checkbox" name = "check" value = "{{task['id']}}"></td>
+                            <td><label for = "{{ task['name'] }}">{{task['title']}}</label></td>
                             <td>{{task['dateCreation']}}</td>
                             <td>{{task['dateStart']}}</td>
                             <td>{{task['dateEnd']}}</td>
@@ -44,7 +45,8 @@
             </thead>
             <tbody>
                 <tr>
-                    <td> -- </td>
+                    <td><input class = "form-check-input" id = "flexCheckDisabled" type = "checkbox" name = "check" value = "{{task['id']}}"></td>
+                    <td><label for = "flexCheckDisabled"> -- </label></td>
                     <td> -- </td>
                     <td> -- </td>
                     <td> -- </td>
