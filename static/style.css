@@ -1,3 +1,7 @@
+main {
+    height: 100vh;
+}
+
 /* Size for brand */
 nav .navbar-brand
 {
@@ -20,4 +24,9 @@ nav .navbar-brand .yellow
 nav .navbar-brand .green
 {
     color: #2e944b;
+}
+
+footer {
+    height: 20vh;
+    background: lightgray;
 }
