@@ -47,7 +47,24 @@ document.addEventListener('DOMContentLoaded', function () {
     notSeePasswdIcon.addEventListener('click', function () {
         const passwdInput = document.getElementById('confPasswd');
         const inputType = passwdInput.getAttribute('type');
+        passwdInput.setAttribute('type', inputType === 'password' ? 'text' : 'password');
+
+        notSeePasswdIcon.classList.toggle('fa-eye');
+        notSeePasswdIcon.classList.toggle('fa-eye-slash');
+    });
+    seePasswdIcon.addEventListener('click', function () {
+        const passwdInput = document.getElementById('passwd');
+        const inputType = passwdInput.getAttribute('type');
         passwdInput.setAttribute('type', inputType === 'text' ? 'password' : 'text');
+
+        seePasswdIcon.classList.toggle('fa-eye');
+        seePasswdIcon.classList.toggle('fa-eye-slash');
+    });
+
+    notSeePasswdIcon.addEventListener('click', function () {
+        const passwdInput = document.getElementById('passwd');
+        const inputType = passwdInput.getAttribute('type');
+        passwdInput.setAttribute('type', inputType === 'password' ? 'text' : 'password');
 
         notSeePasswdIcon.classList.toggle('fa-eye');
         notSeePasswdIcon.classList.toggle('fa-eye-slash');

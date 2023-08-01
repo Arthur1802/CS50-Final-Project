@@ -26,7 +26,7 @@ nav .navbar-brand .green
     color: #2e944b;
 }
 
-#passwd_input #confPasswd_input {
+#passwd_input, #confPasswd_input {
   position: relative;
 }
 
@@ -36,6 +36,7 @@ nav .navbar-brand .green
   transform: translateY(-50%);
   right: 10px;
   cursor: pointer;
+  color: #707071;
 }
 
 #confPasswd_input i {
@@ -44,6 +45,7 @@ nav .navbar-brand .green
   transform: translateY(-50%);
   right: 10px;
   cursor: pointer;
+  color: #707071;
 }
 
 #passwd, #confPasswd {

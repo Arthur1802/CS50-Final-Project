@@ -197,3 +197,7 @@ def get_profile_data():
                               ''', user_id)
     
     return jsonify(user_profile[0])
+
+
+if __name__ == '__main__':
+    app.run(debug = True)
