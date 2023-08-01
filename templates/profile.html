@@ -11,13 +11,13 @@
                 <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "name" class = "form-label">Name:</label>
-                        <input autocomplete = "off" class = "form-control" id = "name" name = "newName" type = "text">
+                        <input autocomplete = "off" class = "form-control mx-auto w-auto" id = "name" name = "newName" type = "text">
                     </div>
                 </div>
                 <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "email" class = "form-label">Email:</label>
-                        <input autocomplete = "off" class = "form-control" id = "email" name = "newEmail" type = "text">
+                        <input autocomplete = "off" class = "form-control mx-auto w-auto" id = "email" name = "newEmail" type = "text">
                     </div>
                 </div>
             </div>
@@ -25,15 +25,24 @@
                 <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "passwd" class = "form-label">Password:</label>
-                        <input autocomplete = "off" class = "form-control" id = "passwd" name = "newPasswd" type = "text">
+                        <div class = "form-control mx-auto w-auto" id = "passwd_input">
+                            <input autocomplete = "off" id = "passwd" name = "newPasswd" placeholder = "Password" type = "text">
+                            <i class = "fa-regular fa-eye" id = "see_passwd"></i>
+                        </div>
                     </div>
                 </div>
                 <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "confPasswd" class = "form-label">Confirm password:</label>
-                        <input autocomplete = "off" class = "form-control" id = "confPasswd" name = "newConfirmation" type = "text">
+                        <div class = "form-control mx-auto w-auto" id = "confPasswd_input">
+                            <input autocomplete = "off" id = "confPasswd" name = "newConfirmation" placeholder = "Confirm password" type = "text">
+                            <i class = "fa-regular fa-eye" id = "see_passwd"></i>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class = "mb-3" style = "margin: auto 0;">
+                <button class = "btn btn-primary" type = "submit">Save  <i class = "fa-regular fa-floppy-disk"></i></button>
             </div>
         </div>
     </form>

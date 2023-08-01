@@ -26,6 +26,31 @@ nav .navbar-brand .green
     color: #2e944b;
 }
 
+#passwd_input #confPasswd_input {
+  position: relative;
+}
+
+#passwd_input i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+}
+
+#confPasswd_input i {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+}
+
+#passwd, #confPasswd {
+    border-color: transparent;
+    outline: none;
+}
+
 footer {
     height: 20vh;
     background: lightgray;
