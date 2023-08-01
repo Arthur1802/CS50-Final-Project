@@ -1,34 +1,40 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Profile: {{p['username']}}
+    {{user_name}}
 {% endblock %}
 
 {% block main %}
-    {% for p in profile %}
-        <form action = "/profile" method = "POST">
-            <div class = "container">
-                <div class = "row">
+    <form action = "/profile" method = "POST">
+        <div class = "container">
+            <div class = "row">
+                <div class = "col-md-6">
                     <div class = "mb-3">
-                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
-                            <label for = "name">Name:</label>
-                            <input autocomplete = "off" autofocus class = "form-control mw-auto w-auto" id = "name" name = "newName" type = "text">
-                        </div>
-                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
-                            <label for = "email">Email:</label>
-                            <input autocomplete = "off" autofocus class = "form-control mw-auto w-auto" id = "email" name = "newEmail" type = "text">
-                        </div>
-                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
-                            <label for = "passwd">Password:</label>
-                            <input autocomplete = "off" autofocus class = "form-control mw-auto w-auto" id = "passwd" name = "newPasswd" type = "text">
-                        </div>
-                        <div class = "mb-3" style = "margin: 0 auto; display: inline-block;">
-                            <label for = "confPasswd">Confirm password:</label>
-                            <input autocomplete = "off" autofocus class = "form-control mw-auto w-auto" id = "confPasswd" name = "newConfirmation" type = "text">
-                        </div>
+                        <label for = "name" class = "form-label">Name:</label>
+                        <input autocomplete = "off" class = "form-control" id = "name" name = "newName" type = "text">
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <div class = "mb-3">
+                        <label for = "email" class = "form-label">Email:</label>
+                        <input autocomplete = "off" class = "form-control" id = "email" name = "newEmail" type = "text">
                     </div>
                 </div>
             </div>
-        </form>
-    {% endfor %}
+            <div class = "row">
+                <div class = "col-md-6">
+                    <div class = "mb-3">
+                        <label for = "passwd" class = "form-label">Password:</label>
+                        <input autocomplete = "off" class = "form-control" id = "passwd" name = "newPasswd" type = "text">
+                    </div>
+                </div>
+                <div class = "col-md-6">
+                    <div class = "mb-3">
+                        <label for = "confPasswd" class = "form-label">Confirm password:</label>
+                        <input autocomplete = "off" class = "form-control" id = "confPasswd" name = "newConfirmation" type = "text">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}

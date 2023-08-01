@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 from cs50 import SQL
-from flask import Flask, render_template, request, redirect, flash, session
+from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import apology, login_required
@@ -176,10 +176,24 @@ def profile():
             return apology('TODO')
         
         else:
-            user_profile = db.execute('''
-                                      SELECT *
+            user_name = db.execute('''
+                                      SELECT name
                                       FROM users
                                       WHERE id = ?
                                       ''', user_id)
             
-            return render_template('profile.html', profile = user_profile)
+            return render_template('profile.html', user_name = user_name[0]['name'])
+        
+
+@app.route('/get_profile_data')
+@login_required
+def get_profile_data():
+    
+    user_id = session['user_id']
+    user_profile = db.execute('''
+                              SELECT *
+                              FROM users
+                              WHERE id = ?
+                              ''', user_id)
+    
+    return jsonify(user_profile[0])
