@@ -6,44 +6,39 @@
 
 {% block main %}
     <form action = "/profile" method = "POST">
-        <div class = "container">
-            <div class = "row">
-                <div class = "col-md-6">
+        <table>
+            <tr>
+                <td style = "width: 50vw; align-items: center;">
                     <div class = "mb-3">
                         <label for = "name" class = "form-label">Name:</label>
-                        <input autocomplete = "off" class = "form-control mx-auto w-auto" id = "name" name = "newName" type = "text">
+                        <input type = "text" class = "form-control mx-auto w-auto" id = "name" name = "name">
                     </div>
-                </div>
-                <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "email" class = "form-label">Email:</label>
-                        <input autocomplete = "off" class = "form-control mx-auto w-auto" id = "email" name = "newEmail" type = "text">
+                        <input type = "email" class = "form-control mx-auto w-auto" id = "email" name = "email">
                     </div>
-                </div>
-            </div>
-            <div class = "row">
-                <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "passwd" class = "form-label">Password:</label>
-                        <<div class = "form-control mx-auto w-auto" id = "passwd_input">
-                            <input autocomplete = "off" id = "passwd" name = "newPasswd" placeholder = "Password" type = "password">
+                        <div  class = "form-control mx-auto" id = "passwd_input">
+                            <input type = "password" id = "passwd" name = "passwd" placeholder = "Password">
                             <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
                         </div>
                     </div>
-                </div>
-                <div class = "col-md-6">
                     <div class = "mb-3">
                         <label for = "confPasswd" class = "form-label">Confirm password:</label>
-                        <div class = "form-control mx-auto w-auto" id = "confPasswd_input">
-                            <input autocomplete = "off" id = "confPasswd" name = "newConfirmation" placeholder = "Confirm password" type = "password">
-                            <i class = "fa-regular fa-eye-slash" id = "see_passwd_2"></i>
+                        <div  class = "form-control mx-auto" id = "confPasswd_input">
+                            <input type = "password" id = "confPasswd" name = "confirmation" placeholder = "Confirm password">
+                            <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class = "mb-3" style = "margin: auto 0;">
-                <button class = "btn btn-primary" type = "submit">Save  <i class = "fa-regular fa-floppy-disk"></i></button>
-            </div>
-        </div>
+                </td>
+                <td style = "width: 50vw;">
+                    <img src = "/static/user-regular.png" alt = "User's profile picture">
+                </td>
+            </tr>
+            <tr>
+                <td colspan = "2"><button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i> Save</button>
+            </tr>
+        </table>
     </form>
 {% endblock %}

@@ -28,6 +28,8 @@ nav .navbar-brand .green
 
 #passwd_input, #confPasswd_input {
   position: relative;
+  cursor: text;
+  width: fit-content;
 }
 
 #passwd_input i {
@@ -52,7 +54,12 @@ nav .navbar-brand .green
     border-color: transparent;
     outline: none;
     padding: 0;
-    position: relative;
+    height: 20px;
+    right: -50px;
+}
+
+#prof_btn {
+    width: 150px;
 }
 
 footer {
