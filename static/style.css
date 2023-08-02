@@ -51,6 +51,8 @@ nav .navbar-brand .green
 #passwd, #confPasswd {
     border-color: transparent;
     outline: none;
+    padding: 0;
+    position: relative;
 }
 
 footer {
