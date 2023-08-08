@@ -234,13 +234,27 @@ def editTask():
 @app.route('/deleteTask', methods = ['GET', 'POST'])
 @login_required
 def deleteTask():
+
+
+    if request.method == 'POST':
+        user_id = session['user_id']
         
-            if request.method == 'POST':
-                return apology('TODO')
+        checked = request.form.getlist('check')
+
+        if not checked:
+            return apology('to delete a task, you must select a task', 403)
         
-            else:
-                return render_template('deleteTask.html')
+        for i in checked:
+            db.execute('''
+                       DELETE FROM tasks
+                       WHERE id = ?
+                       AND user_id = ?
+                       ''', i, user_id)
             
+        flash('Task(s) deleted successfully')
+
+        return redirect('/')
+        
 
 @app.route('/profile', methods = ['GET', 'POST'])
 @login_required
