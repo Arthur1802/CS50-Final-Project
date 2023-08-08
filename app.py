@@ -138,7 +138,45 @@ def logout():
 def addTask():
 
     if request.method == 'POST':
-        return apology('TODO')
+        user_id = session['user_id']
+        
+        title = request.form.get('title')
+        description = request.form.get('description')
+        dateCreation = datetime.now().date()
+        year1 = request.form.get('year1')
+        month1 = request.form.get('month1')
+        day1 = request.form.get('day1')
+        year2 = request.form.get('year2')
+        month2 = request.form.get('month2')
+        day2 = request.form.get('day2')
+        dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
+        dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
+        fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date()
+        fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date()
+
+        if not title:
+            return apology('must provide title', 403)
+        
+        if not description:
+            return apology('must provide description', 403)
+        
+        if not day1 or not day2:
+            return apology('date must incoude day', 403)
+        
+        if not month1 or not month2:
+            return apology('date must incoude month', 403)
+        
+        if not year1 or not year2:
+            return apology('date must incoude year', 403)
+        
+        db.execute('''
+                   INSERT INTO tasks (user_id, title, description, dateCreation, dateStart, dateEnd)
+                   VALUES (?, ?, ?, ?, ?, ?)
+                   ''', user_id, title, description, dateCreation, fDateStart, fDateEnd)
+        
+        flash('Task added successfully')
+
+        return redirect('/')
 
     else:
         return render_template('addTask.html')
@@ -149,7 +187,45 @@ def addTask():
 def editTask():
     
         if request.method == 'POST':
-            return apology('TODO')
+            user_id = session['user_id']
+        
+            title = request.form.get('title')
+            description = request.form.get('description')
+            year1 = request.form.get('year1')
+            month1 = request.form.get('month1')
+            day1 = request.form.get('day1')
+            year2 = request.form.get('year2')
+            month2 = request.form.get('month2')
+            day2 = request.form.get('day2')
+            dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
+            dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
+            fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date()
+            fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date()
+
+            if not title:
+                return apology('must provide title', 403)
+            
+            if not description:
+                return apology('must provide description', 403)
+            
+            if not day1 or not day2:
+                return apology('date must incoude day', 403)
+            
+            if not month1 or not month2:
+                return apology('date must incoude month', 403)
+            
+            if not year1 or not year2:
+                return apology('date must incoude year', 403)
+            
+            db.execute('''
+                       UPDATE tasks
+                       SET title = ?, description = ?, dateStart = ?, dateEnd = ?
+                       WHERE user_id = ?
+                       ''', title, description, fDateStart, fDateEnd, user_id)
+            
+            flash('Task edited successfully')
+
+            return redirect('/')
     
         else:
             return render_template('editTask.html')
@@ -198,6 +274,23 @@ def get_profile_data():
     
     return jsonify(user_profile[0])
 
+
+@app.route('/get_tasks_data')
+@login_required
+def get_tasks_data():
+
+    try:
+        user_id = session['user_id']
+        user_tasks = db.execute('''
+                                SELECT *
+                                FROM tasks
+                                WHERE user_id = ?
+                                ''', user_id)
+    
+        return jsonify(user_tasks[0])
+    except:
+        return apology('No tasks found', 403)
+    
 
 if __name__ == '__main__':
     app.run(debug = True)

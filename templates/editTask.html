@@ -1,17 +1,90 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Tasks
+    Edit Tasks
 {% endblock %}
 
 {% block main %}
     <div class = "mb-3">
-        <h1>Tasks</h1>
+        <h1>Edit Tasks</h1>
     </div>
     <div class = "mb-3">
-        <form action = "/task" method = "POST">
+        <form action = "/editTask" method = "POST">
             <div class = "mb-3">
-                <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "task" placeholder = "Task" type = "text">
+                <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "title" placeholder = "Task title" type = "text">
+            </div>
+            <div class = "mb-3">
+                <textarea class = "form-control mx-auto w-auto" id = "description" rows = "4" cols = "50" name = "description">Description</textarea>
+            </div>
+            <div class = "mb-3">
+                <div class = "mb-3">
+                    <h2>Starting Date</h2>
+                </div>
+                <div class = "form-group">
+                    <div class = "container" style = "width: 24vw; margin: 0 auto;">
+                        <div class = "row">
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "day1" placeholder = "Day" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Day</option>
+                                    {% for i in range(1, 32) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "month1" placeholder = "Month" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Month</option>
+                                    {% for i in range(1, 13) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "year1" placeholder = "Year" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Year</option>
+                                    {% for i in range(2023, 1900, -1) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class = "mb-3">
+                <div class = "mb-3">
+                    <h2>Ending Date</h2>
+                </div>
+                <div class = "form-group">
+                    <div class = "container" style = "width: 24vw; margin: 0 auto;">
+                        <div class = "row">
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "day2" placeholder = "Day" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Day</option>
+                                    {% for i in range(1, 32) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "month2" placeholder = "Month" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Month</option>
+                                    {% for i in range(1, 13) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class = "col-sm">
+                                <select class = "form-select" name = "year2" placeholder = "Year" style = "width: 6vw; margin: 0 auto;">
+                                    <option value = "" selected>Year</option>
+                                    {% for i in range(2023, 1900, -1) %}
+                                        <option value = "{{ i }}">{{ i }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class = "mb-3">
                 <button class = "btn btn-primary" type = "submit">Add</button>

@@ -10,17 +10,16 @@
     </div>
     <div class = "mb-3">
         {% if tasks %}
-        <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
-            <thead>
-                <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
-                <th scope = "col">Title</th>
-                <th scope = "col">Created on</th>
-                <th scope = "col">Start date</th>
-                <th scope = "col">End date</th>
-                <th scope = "col">Description</th>
-                <th scope = "col">Status</th>
-            </thead>
-            <tbody>
+            <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+                <thead>
+                    <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
+                    <th scope = "col">Title</th>
+                    <th scope = "col">Created on</th>
+                    <th scope = "col">Start date</th>
+                    <th scope = "col">End date</th>
+                    <th scope = "col">Description</th>
+                </thead>
+                <tbody>
                     {% for task in tasks %}
                         <tr>
                             <td><input class = "form-check-input" id = "{{ task['name'] }}" type = "checkbox" name = "check" value = "{{task['id']}}"></td>
@@ -29,34 +28,31 @@
                             <td>{{task['dateStart']}}</td>
                             <td>{{task['dateEnd']}}</td>
                             <td>{{task['description']}}</td>
-                            <td>{{task['status']}}</td>
                         </tr>
                     {% endfor %}
-                    </tbody>
-                </table>
+                </tbody>
+            </table>
         {% else %}
-        <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
-            <thead>
-                <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
-                <th scope = "col">Title</th>
-                <th scope = "col">Created on</th>
-                <th scope = "col">Start date</th>
-                <th scope = "col">End date</th>
-                <th scope = "col">Description</th>
-                <th scope = "col">Status</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "check" value = "None"></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                    <td><label for = "flexCheckDisabled"> -- </label></td>
-                </tr>
-            </tbody>
-        </table>
+            <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+                <thead>
+                    <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
+                    <th scope = "col">Title</th>
+                    <th scope = "col">Created on</th>
+                    <th scope = "col">Start date</th>
+                    <th scope = "col">End date</th>
+                    <th scope = "col">Description</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "check" value = "None"></td>
+                        <td><label for = "flexCheckDisabled"> -- </label></td>
+                        <td><label for = "flexCheckDisabled"> -- </label></td>
+                        <td><label for = "flexCheckDisabled"> -- </label></td>
+                        <td><label for = "flexCheckDisabled"> -- </label></td>
+                        <td><label for = "flexCheckDisabled"> -- </label></td>
+                    </tr>
+                </tbody>
+            </table>
         {% endif %}
     </div>
     <div class = "mb-3">
