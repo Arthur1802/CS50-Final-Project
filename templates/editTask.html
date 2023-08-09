@@ -9,6 +9,14 @@
         <h1>Edit Tasks</h1>
     </div>
     <div class = "mb-3">
+        <select class = "form-select" id = "task" name = "task" style = "width: 24vw; margin: 0 auto;">
+            <option value = "" selected>Task</option>
+            {% for task in tasks %}
+                <option value = "{{ task.id }}">{{ task["title"] }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class = "mb-3">
         <form action = "/editTask" method = "POST">
             <div class = "mb-3">
                 <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "title" placeholder = "Task title" type = "text">
@@ -87,7 +95,7 @@
                 </div>
             </div>
             <div class = "mb-3">
-                <button class = "btn btn-primary" type = "submit">Add</button>
+                <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i> Save</button>
             </div>
         </form>
     </div>

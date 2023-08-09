@@ -182,53 +182,61 @@ def addTask():
         return render_template('addTask.html')
     
 
-@app.route('/editTask', methods = ['GET', 'POST'])
+@app.route('/editTask', methods=['GET', 'POST'])
 @login_required
 def editTask():
-    
-        if request.method == 'POST':
-            user_id = session['user_id']
-        
-            title = request.form.get('title')
-            description = request.form.get('description')
-            year1 = request.form.get('year1')
-            month1 = request.form.get('month1')
-            day1 = request.form.get('day1')
-            year2 = request.form.get('year2')
-            month2 = request.form.get('month2')
-            day2 = request.form.get('day2')
-            dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
-            dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
-            fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date()
-            fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date()
+    if request.method == 'POST':
+        user_id = session['user_id']
 
-            if not title:
-                return apology('must provide title', 403)
-            
-            if not description:
-                return apology('must provide description', 403)
-            
-            if not day1 or not day2:
-                return apology('date must incoude day', 403)
-            
-            if not month1 or not month2:
-                return apology('date must incoude month', 403)
-            
-            if not year1 or not year2:
-                return apology('date must incoude year', 403)
-            
+        task_id = request.form.get('task')
+        title = request.form.get('title')
+        description = request.form.get('description')
+        
+        dateStart = None
+        dateEnd = None
+        
+        year1 = request.form.get('year1')
+        month1 = request.form.get('month1')
+        day1 = request.form.get('day1')
+        
+        if day1 != 'Day' and month1 != 'Month' and year1 != 'Year':
+            dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
+        
+        year2 = request.form.get('year2')
+        month2 = request.form.get('month2')
+        day2 = request.form.get('day2')
+        
+        if day2 != 'Day' and month2 != 'Month' and year2 != 'Year':
+            dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
+        
+        if not title and not description and not dateStart and not dateEnd or description == 'Description':
+            return apology('must provide at least one field to edit', 403)
+        
+        # Update the task only if at least one field is being edited
+        if title or description or dateStart or dateEnd:
             db.execute('''
-                       UPDATE tasks
-                       SET title = ?, description = ?, dateStart = ?, dateEnd = ?
-                       WHERE user_id = ?
-                       ''', title, description, fDateStart, fDateEnd, user_id)
+                        UPDATE tasks
+                        SET title = COALESCE(?, title),
+                        description = COALESCE(?, description),
+                        dateStart = COALESCE(?, dateStart),
+                        dateEnd = COALESCE(?, dateEnd)
+                        WHERE user_id = ?
+                        AND id = ?
+                        ''', title, description, dateStart, dateEnd, user_id, task_id)
             
             flash('Task edited successfully')
 
-            return redirect('/')
-    
-        else:
-            return render_template('editTask.html')
+        return redirect('/')
+
+    else:
+        user_id = session['user_id']
+
+        user_tasks = db.execute('''SELECT *
+                                FROM tasks
+                                WHERE user_id = ?
+                                ''', session['user_id'])
+        
+        return render_template('editTask.html', tasks = user_tasks)
         
 
 @app.route('/deleteTask', methods = ['GET', 'POST'])
