@@ -5,6 +5,7 @@ from cs50 import SQL
 from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.serving import run_simple
 from helpers import apology, login_required
 
 app = Flask(__name__)
@@ -153,6 +154,7 @@ def addTask():
         dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
         fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date()
         fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date()
+        status = 'ON GOING'
 
         if not title:
             return apology('must provide title', 403)
@@ -170,9 +172,9 @@ def addTask():
             return apology('date must incoude year', 403)
         
         db.execute('''
-                   INSERT INTO tasks (user_id, title, description, dateCreation, dateStart, dateEnd)
-                   VALUES (?, ?, ?, ?, ?, ?)
-                   ''', user_id, title, description, dateCreation, fDateStart, fDateEnd)
+                   INSERT INTO tasks (user_id, title, description, dateCreation, dateStart, dateEnd, status)
+                   VALUES (?, ?, ?, ?, ?, ?, ?)
+                   ''', user_id, title, description, dateCreation, fDateStart, fDateEnd, status)
         
         flash('Task added successfully')
 
@@ -247,7 +249,7 @@ def deleteTask():
     if request.method == 'POST':
         user_id = session['user_id']
         
-        checked = request.form.getlist('check')
+        checked = request.form.getlist('checkDel')
 
         if not checked:
             return apology('to delete a task, you must select a task', 403)
@@ -260,6 +262,31 @@ def deleteTask():
                        ''', i, user_id)
             
         flash('Task(s) deleted successfully')
+
+        return redirect('/')
+    
+
+@app.route('/completeTask', methods = ['GET', 'POST'])
+@login_required
+def completeTask():
+
+    if request.method == 'POST':
+        user_id = session['user_id']
+
+        checked = request.form.getlist('checkComp')
+
+        if not checked:
+            return apology('to complete a task, you must select a task', 403)
+        
+        for i in checked:
+            db.execute('''
+                       UPDATE tasks
+                       SET completed = 1
+                       WHERE id = ?
+                       AND user_id = ?
+                       ''', i, user_id)
+            
+        flash('Task(s) completed successfully')
 
         return redirect('/')
         
@@ -315,4 +342,4 @@ def get_tasks_data():
     
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    run_simple('localhost', 5000, app, use_reloader=True)

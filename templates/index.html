@@ -8,11 +8,12 @@
     <div class = "mb-3">
         <h1>Tasks</h1>
     </div>
-    <form action = "/deleteTask" method = "POST">
+    <form id = "indexForm" action = "/deleteTask" method = "POST">
         <div class = "mb-3">
             {% if tasks %}
                 <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
                     <thead>
+                        <th scope = "col"><i class="fa-regular fa-square-check"></i></th>
                         <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
                         <th scope = "col">Title</th>
                         <th scope = "col">Created on</th>
@@ -23,8 +24,9 @@
                     <tbody>
                         {% for task in tasks %}
                             <tr>
-                                <td><input class = "form-check-input" id = "{{ task['title'] }}" type = "checkbox" name = "check" value = "{{task['id']}}"></td>
-                                <td><label for = "{{ task['title'] }}">{{task['title']}}</label></td>
+                                <td><input class = "form-check-input" id = "{{ task['title'] }}" type = "checkbox" name = "checkComp" value = "{{task['id']}}"></td>
+                                <td><input class = "form-check-input" id = "{{ task['title'] }}" type = "checkbox" name = "checkDel" value = "{{task['id']}}"></td>
+                                <td>{{task['title']}}</td>
                                 <td>{{task['dateCreation']}}</td>
                                 <td>{{task['dateStart']}}</td>
                                 <td>{{task['dateEnd']}}</td>
@@ -36,6 +38,7 @@
             {% else %}
                 <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
                     <thead>
+                        <th scope = "col"><i class="fa-regular fa-square-check"></i></th>
                         <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
                         <th scope = "col">Title</th>
                         <th scope = "col">Created on</th>
@@ -45,7 +48,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "check" value = "None"></td>
+                            <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "checkComp" value = "None"></td>
+                            <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "checkDel" value = "None"></td>
                             <td><label for = "flexCheckDisabled"> -- </label></td>
                             <td><label for = "flexCheckDisabled"> -- </label></td>
                             <td><label for = "flexCheckDisabled"> -- </label></td>

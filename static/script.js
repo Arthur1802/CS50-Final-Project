@@ -132,3 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching profile data:', error));
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form');
+});
