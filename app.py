@@ -5,7 +5,6 @@ from cs50 import SQL
 from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from werkzeug.serving import run_simple
 from helpers import apology, login_required
 
 app = Flask(__name__)
@@ -342,4 +341,4 @@ def get_tasks_data():
     
 
 if __name__ == '__main__':
-    run_simple('localhost', 5000, app, use_reloader=True)
+    app.run(debug = True)
