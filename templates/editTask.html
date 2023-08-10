@@ -9,7 +9,7 @@
         <h1>Edit Tasks</h1>
     </div>
     <div class = "mb-3">
-        <form action = "/get_tasks_data" id = "editForm" method = "POST">
+        <form action = "/getTaskData" id = "editForm" method = "POST">
             <select class = "form-select" id = "taskSelect" name = "task_id" style = "width: 24vw; margin: 0 auto;">
                 <option value = "" selected>Task</option>
                 {% for task in tasks %}

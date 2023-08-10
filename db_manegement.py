@@ -1,5 +1,8 @@
 import sqlite3
 import time
+import os
+
+os.system('cls' if os.name == 'nt' else 'clear')
 
 conn = sqlite3.connect('tasktracker.db')
 db = conn.cursor()

@@ -186,17 +186,6 @@ def addTask():
 @app.route('/editTask', methods = ['GET', 'POST'])
 @login_required
 def editTask():
-    @app.route('/getTaskData' , methods = ['GET'])
-    def getTaskData(task_id, user_id):
-        user_tasks = db.execute('''
-                                SELECT *
-                                FROM tasks
-                                WHERE user_id = ?
-                                AND id = ?
-                                ''', user_id, task_id)
-        
-        return jsonify(user_tasks[0])
-
 
     def updateTask(task_id, user_id, title, description, dateStart, dateEnd):
         db.execute('''
@@ -268,6 +257,21 @@ def editTask():
         
         return render_template('editTask.html', tasks = user_tasks)
         
+
+@app.route('/getTaskData/<int:task_id>', methods = ['GET'])
+@login_required
+def getTaskData(task_id):
+    user_id = session['user_id']
+    
+    user_tasks = db.execute('''
+                            SELECT *
+                            FROM tasks
+                            WHERE user_id = ? AND id = ?
+                            ''', (user_id, task_id))
+    
+    return jsonify(user_tasks[0])
+
+
 
 @app.route('/deleteTask', methods = ['GET', 'POST'])
 @login_required

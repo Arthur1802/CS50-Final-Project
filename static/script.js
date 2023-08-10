@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('/get_tasks_data')
+    fetch('/getTaskData/${taskId}')
         .then(response => response.json())
         .then(data => {
             const titleInput = document.getElementById('title');
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
     taskSelect.addEventListener('change', function () {
         const selectedTaskId = taskSelect.value;
         if (selectedTaskId) {
-            fetch('/get_task_details')
+            fetch('/getTaskData')
                 .then(response => response.json())
                 .then(data => {
                     titleInput.value = data.title;
