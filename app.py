@@ -26,7 +26,6 @@ def after_request(response):
 @app.route('/')
 @login_required
 def index():
-
     user_id = session['user_id']
 
     user_tasks = db.execute('''SELECT *
@@ -190,6 +189,9 @@ def editTask():
         user_id = session['user_id']
 
         task_id = request.form.get('task')
+
+        get_tasks_data(user_id, task_id)
+
         title = request.form.get('title')
         description = request.form.get('description')
         
@@ -322,18 +324,16 @@ def get_profile_data():
     
     return jsonify(user_profile[0])
 
-
-@app.route('/get_tasks_data')
-@login_required
-def get_tasks_data():
+@app.route('/get_tasks_data/<int:task_id>')
+def get_tasks_data(task_id, user_id):
 
     try:
-        user_id = session['user_id']
         user_tasks = db.execute('''
                                 SELECT *
                                 FROM tasks
                                 WHERE user_id = ?
-                                ''', user_id)
+                                AND id = ?
+                                ''', user_id, task_id)
     
         return jsonify(user_tasks[0])
     except:

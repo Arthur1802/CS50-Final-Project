@@ -133,6 +133,52 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error('Error fetching profile data:', error));
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form');
+document.addEventListener('DOMContentLoaded', function () {
+    const taskSelect = document.getElementById('taskSelect');
+    const titleInput = document.querySelector('input[name = "title"]');
+    const descriptionTextarea = document.querySelector('textarea[name = "description"]');
+    const day1 = document.querySelector('input[name = "day1"]');
+    const month1 = document.querySelector('input[name = "month1"]');
+    const year1 = document.querySelector('input[name = "year1"]');
+    const day2 = document.querySelector('input[name = "day2"]');
+    const month2 = document.querySelector('input[name = "month2"]');
+    const year2 = document.querySelector('input[name = "year2"]');
+    
+    taskSelect.addEventListener('change', function () {
+        const selectedTaskId = taskSelect.value;
+        if (selectedTaskId) {
+            fetch(`/get_task_details/${selectedTaskId}`)  // Replace with your server endpoint
+                .then(response => response.json())
+                .then(data => {
+                    titleInput.value = data.title;
+                    descriptionTextarea.value = data.description;
+                    day1.value = data.day1;
+                    month1.value = data.month1;
+                    year1.value = data.year1;
+                    day2.value = data.day2;
+                    month2.value = data.month2;
+                    year2.value = data.year2;
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            // Clear form fields
+            titleInput.value = '';
+            descriptionTextarea.value = '';
+            day1.value = '';
+            month1.value = '';
+            year1.value = '';
+            day2.value = '';
+            month2.value = '';
+            year2.value = '';
+        }
+    });
+    
+    // Add event listener for form submission (AJAX request)
+    const editForm = document.getElementById('editForm');
+    editForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        // Collect form data and send AJAX request to server
+        // Handle response and feedback to the user
+    });
 });
