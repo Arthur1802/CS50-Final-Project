@@ -2,7 +2,10 @@ import sqlite3
 import time
 import os
 
-os.system('cls' if os.name == 'nt' else 'clear')
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+clear()
 
 conn = sqlite3.connect('tasktracker.db')
 db = conn.cursor()
@@ -40,6 +43,9 @@ while True:
         consult_tasks_table()
     elif opt == '0':
         break
+    
+    time.sleep(120)
+    clear()
 
 print('=' * 50)
 print('Closing program...')
