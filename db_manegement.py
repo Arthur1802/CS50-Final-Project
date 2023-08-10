@@ -8,14 +8,22 @@ def consult_users_table():
     db.execute('''SELECT *
                 FROM users''')
 
-    print(db.fetchall())
+    for user in db.fetchall():
+        for i in range(5):
+            print(user[i])
+        print('-' * 50)
+        print('\n')
 
 
 def consult_tasks_table():
     db.execute('''SELECT *
                 FROM tasks''')
 
-    print(db.fetchall())
+    for task in db.fetchall():
+        for i in range(8):
+            print(task[i])
+        print('-' * 50)
+        print('\n')
 
 
 opt = -1
@@ -30,6 +38,7 @@ while True:
     elif opt == '0':
         break
 
+print('=' * 50)
 print('Closing program...')
 time.sleep(2)
 print('Program closed!')
