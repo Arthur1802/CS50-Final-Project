@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function () {
     taskSelect.addEventListener('change', function () {
         const selectedTaskId = taskSelect.value;
         if (selectedTaskId) {
-            fetch(`/get_task_details/${selectedTaskId}`)  // Replace with your server endpoint
+            fetch('/get_task_details')
                 .then(response => response.json())
                 .then(data => {
                     titleInput.value = data.title;

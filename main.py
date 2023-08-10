@@ -1,3 +1,4 @@
+import json
 import os
 from datetime import datetime
 
@@ -182,20 +183,50 @@ def addTask():
         return render_template('addTask.html')
     
 
-@app.route('/editTask', methods=['GET', 'POST'])
+@app.route('/editTask', methods = ['GET', 'POST'])
 @login_required
 def editTask():
+    @app.route('/getTaskData' , methods = ['GET'])
+    def getTaskData(task_id, user_id):
+        user_tasks = db.execute('''
+                                SELECT *
+                                FROM tasks
+                                WHERE user_id = ?
+                                AND id = ?
+                                ''', user_id, task_id)
+        
+        return jsonify(user_tasks[0])
+
+
+    def updateTask(task_id, user_id, title, description, dateStart, dateEnd):
+        db.execute('''
+                    UPDATE tasks
+                    SET title = ?,
+                        description = ?,
+                        dateStart = ?,
+                        dateEnd = ?
+                    WHERE   id = ? AND user_id = ?
+                    WHERE   title != ? AND
+                            description != ? AND
+                            dateStart != ? AND
+                            dateEnd != ?
+                    ''', title, description, dateStart, dateEnd, task_id, user_id, title, description, dateStart, dateEnd)
+        
+        flash('Task edited successfully')
+
+        
     if request.method == 'POST':
         user_id = session['user_id']
 
         task_id = request.form.get('task')
+    
+        task_data = getTaskData(task_id, user_id)
 
+        updtTaskData = json.loads(task_data)
+    
         title = request.form.get('title')
         description = request.form.get('description')
-        
-        dateStart = None
-        dateEnd = None
-        
+
         year1 = request.form.get('year1')
         month1 = request.form.get('month1')
         day1 = request.form.get('day1')
@@ -203,30 +234,28 @@ def editTask():
         if day1 != 'Day' and month1 != 'Month' and year1 != 'Year':
             dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
         
+        else:
+            dateStart = None
+        
         year2 = request.form.get('year2')
         month2 = request.form.get('month2')
         day2 = request.form.get('day2')
         
         if day2 != 'Day' and month2 != 'Month' and year2 != 'Year':
             dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
+
+        else:
+            dateEnd = None
+
+        if description == 'Description':
+            description = None
         
         if not title and not description and not dateStart and not dateEnd or description == 'Description':
             return apology('must provide at least one field to edit', 403)
         
-        # Update the task only if at least one field is being edited
         if title or description or dateStart or dateEnd:
-            db.execute('''
-                        UPDATE tasks
-                        SET title = COALESCE(?, title),
-                        description = COALESCE(?, description),
-                        dateStart = COALESCE(?, dateStart),
-                        dateEnd = COALESCE(?, dateEnd)
-                        WHERE user_id = ?
-                        AND id = ?
-                        ''', title, description, dateStart, dateEnd, user_id, task_id)
+            updateTask(task_id, user_id, title, description, dateStart, dateEnd)
             
-            flash('Task edited successfully')
-
         return redirect('/')
 
     else:
@@ -297,7 +326,43 @@ def profile():
         user_id = session['user_id']
         
         if request.method == 'POST':
-            return apology('TODO')
+            name = request.form.get('name')
+            email = request.form.get('email')
+            password = request.form.get('password')
+            confirmation = request.form.get('confirmation')
+            day = request.form.get('day')
+            month = request.form.get('month')
+            year = request.form.get('year')
+
+            if not name and not email and not password and not day and not month and not year:
+                return apology('must provide at least one field to edit', 403)
+            
+            if password:
+                if password != confirmation:
+                    return apology('passwords do not match', 403)
+                
+                else:
+                    password = generate_password_hash(password)
+
+            if day != 'Day' and month != 'Month' and year != 'Year':
+                fBirthDate = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            
+            db.execute('''
+                        UPDATE users
+                        SET  name = ?,
+                            email = ?,
+                            hashed_password = ?,
+                            birthDate = ?
+                        WHERE id = ? AND
+                        name != ? OR
+                        email != ? OR
+                        hashed_password != ? OR
+                        birthDate != ?
+                        ''', name, email, password, fBirthDate, user_id, name, email, password, fBirthDate)
+            
+            flash('Profile edited successfully')
+
+            return redirect('/')
         
         else:
             user_name = db.execute('''
@@ -308,22 +373,6 @@ def profile():
             
             return render_template('profile.html', user_name = user_name[0]['name'])
         
-
-@app.route('/get_tasks_data/<int:task_id>')
-def get_tasks_data(task_id, user_id):
-
-    try:
-        user_tasks = db.execute('''
-                                SELECT *
-                                FROM tasks
-                                WHERE user_id = ?
-                                AND id = ?
-                                ''', user_id, task_id)
-    
-        return jsonify(user_tasks[0])
-    except:
-        return apology('No tasks found', 403)
-    
 
 if __name__ == '__main__':
     app.run(debug = True)
