@@ -190,8 +190,6 @@ def editTask():
 
         task_id = request.form.get('task')
 
-        get_tasks_data(user_id, task_id)
-
         title = request.form.get('title')
         description = request.form.get('description')
         
@@ -310,19 +308,6 @@ def profile():
             
             return render_template('profile.html', user_name = user_name[0]['name'])
         
-
-@app.route('/get_profile_data')
-@login_required
-def get_profile_data():
-    
-    user_id = session['user_id']
-    user_profile = db.execute('''
-                              SELECT *
-                              FROM users
-                              WHERE id = ?
-                              ''', user_id)
-    
-    return jsonify(user_profile[0])
 
 @app.route('/get_tasks_data/<int:task_id>')
 def get_tasks_data(task_id, user_id):

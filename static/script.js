@@ -160,25 +160,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     year2.value = data.year2;
                 })
                 .catch(error => console.error('Error:', error));
-        } else {
-            // Clear form fields
-            titleInput.value = '';
-            descriptionTextarea.value = '';
-            day1.value = '';
-            month1.value = '';
-            year1.value = '';
-            day2.value = '';
-            month2.value = '';
-            year2.value = '';
         }
-    });
-    
-    // Add event listener for form submission (AJAX request)
-    const editForm = document.getElementById('editForm');
-    editForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        
-        // Collect form data and send AJAX request to server
-        // Handle response and feedback to the user
     });
 });
