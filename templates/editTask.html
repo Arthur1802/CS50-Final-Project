@@ -9,7 +9,7 @@
         <h1>Edit Tasks</h1>
     </div>
     <div class = "mb-3">
-        <form action = "/editTask" id = "editForm" method = "POST">
+        <form action = "/editTask" method = "POST">
             {% for t in user_tasks %}
                 <div class = "mb3">
                     <select class = "form-select" name = "task" placeholder = "Task" style = "width: 24vw; margin: 0 auto;">
@@ -23,7 +23,7 @@
                     <input autocomplete = "off" autofocus class = "form-control mx-auto w-auto" name = "title" placeholder = "{{ t.title }}" type = "text">
                 </div>
                 <div class = "mb-3">
-                    <textarea class = "form-control mx-auto w-auto" id = "description" rows = "4" cols = "50" name = "description">{{ t["description"] }}</textarea>
+                    <textarea class = "form-control mx-auto w-auto" rows = "4" cols = "50" name = "description">{{ t["description"] }}</textarea>
                 </div>
                 <div class = "mb-3">
                     <div class = "mb-3">
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <div class = "mb-3">
-                    <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i> Save</button>
+                    <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i>   Save</button>
                 </div>
             {% endfor %}
         </form>

@@ -7,42 +7,44 @@
 {% block main %}
     <form action = "/profile" method = "POST">
         <table>
-            <tr>
-                <td style = "width: 50vw; align-items: center;">
-                    <div class = "mb-3">
-                        <label for = "name" class = "form-label">Name:</label>
-                        <input type = "text" class = "form-control mx-auto w-auto" id = "name" name = "name">
-                    </div>
-                    <div class = "mb-3">
-                        <label for = "email" class = "form-label">Email:</label>
-                        <input type = "email" class = "form-control mx-auto w-auto" id = "email" name = "email">
-                    </div>
-                    <div class = "mb-3">
-                        <label for = "passwd" class = "form-label">Password:</label>
-                        <div  class = "form-control mx-auto" id = "passwd_input">
-                            <input type = "password" id = "passwd" name = "passwd" placeholder = "Password">
-                            <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
+            {% for info in user_info %}
+                <tr>
+                    <td style = "width: 50vw; align-items: center;">
+                        <div class = "mb-3">
+                            <label for = "name" class = "form-label">Name:</label>
+                            <input type = "text" class = "form-control mx-auto w-auto" id = "name" placeholder = "{{ info.name }}" name = "name">
                         </div>
-                    </div>
-                    <div class = "mb-3">
-                        <label for = "confPasswd" class = "form-label">Confirm password:</label>
-                        <div  class = "form-control mx-auto" id = "confPasswd_input">
-                            <input type = "password" id = "confPasswd" name = "confirmation" placeholder = "Confirm password">
-                            <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
+                        <div class = "mb-3">
+                            <label for = "email" class = "form-label">Email:</label>
+                            <input type = "email" class = "form-control mx-auto w-auto" id = "email" placeholder = "{{ info.email }}" name = "email">
                         </div>
-                    </div>
-                </td>
-                <td style = "width: 50vw;">
-                    <img alt = "User's profile picture" class = "rounded-circle" id = "profile_pic" src = "/static/user-regular.png">
-                </td>
-            </tr>
-            <tr>
-                <td colspan = "2">
-                    <div class = "mb-3">
-                        <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i> Save</button>
-                    </div>
-                </td>
-            </tr>
+                        <div class = "mb-3">
+                            <label for = "passwd" class = "form-label">Password:</label>
+                            <div  class = "form-control mx-auto" id = "passwd_input">
+                                <input type = "password" id = "passwd" name = "passwd" placeholder = "Password">
+                                <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
+                            </div>
+                        </div>
+                        <div class = "mb-3">
+                            <label for = "confPasswd" class = "form-label">Confirm password:</label>
+                            <div  class = "form-control mx-auto" id = "confPasswd_input">
+                                <input type = "password" id = "confPasswd" name = "confirmation" placeholder = "Confirm password">
+                                <i class = "fa-regular fa-eye-slash" id = "see_passwd"></i>
+                            </div>
+                        </div>
+                    </td>
+                    <td style = "width: 50vw;">
+                        <img alt = "User's profile picture" class = "rounded-circle" id = "profile_pic" src = "/static/user-regular.png">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan = "2">
+                        <div class = "mb-3">
+                            <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-floppy-disk"></i> Save</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
     </form>
 {% endblock %}

@@ -338,7 +338,7 @@ def profile():
             
             db.execute('''
                         UPDATE users
-                        SET  name = ?,
+                        SET name = ?,
                             email = ?,
                             hashed_password = ?,
                             birthDate = ?
@@ -354,13 +354,13 @@ def profile():
             return redirect('/')
         
         else:
-            user_name = db.execute('''
-                                      SELECT name
+            user_info = db.execute('''
+                                      SELECT *
                                       FROM users
                                       WHERE id = ?
                                       ''', user_id)
             
-            return render_template('profile.html', user_name = user_name[0]['name'])
+            return render_template('profile.html', user_info = user_info)
         
 
 if __name__ == '__main__':
