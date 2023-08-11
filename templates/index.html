@@ -4,33 +4,35 @@
     Tasks
 {% endblock %}
 
-{% block main %}
+{% block body %}
     <div class = "mb-3">
         <h1>Tasks</h1>
     </div>
-    <form id = "indexForm" action = "/deleteTask" method = "POST">
-        <div class = "mb-3">
+    <div class = "mb-3">
+        <form action = "/taskManager/button_clicked" method = "POST">
             {% if tasks %}
                 <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
                     <thead>
-                        <th scope = "col"><i class="fa-regular fa-square-check"></i></th>
+                        <th scope = "col"><i class = "fa-regular fa-square-check"></i></th>
                         <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
                         <th scope = "col">Title</th>
                         <th scope = "col">Created on</th>
                         <th scope = "col">Start date</th>
                         <th scope = "col">End date</th>
                         <th scope = "col">Description</th>
+                        <th scope = "col">Status</th>
                     </thead>
                     <tbody>
                         {% for task in tasks %}
                             <tr>
-                                <td><input class = "form-check-input" id = "{{ task['title'] }}" type = "checkbox" name = "checkComp" value = "{{task['id']}}"></td>
-                                <td><input class = "form-check-input" id = "{{ task['title'] }}" type = "checkbox" name = "checkDel" value = "{{task['id']}}"></td>
-                                <td>{{task['title']}}</td>
-                                <td>{{task['dateCreation']}}</td>
-                                <td>{{task['dateStart']}}</td>
-                                <td>{{task['dateEnd']}}</td>
-                                <td>{{task['description']}}</td>
+                                <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkComp" value = "{{ task.id }}"></td>
+                                <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkDel" value = "{{ task.id }}"></td>
+                                <td>{{ task["title"] }}</td>
+                                <td>{{ task["dateCreation"] }}</td>
+                                <td>{{ task["dateStart"] }}</td>
+                                <td>{{ task["dateEnd"] }}</td>
+                                <td>{{ task["description"] }}</td>
+                                <td>{{ task["status"] }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -45,6 +47,7 @@
                         <th scope = "col">Start date</th>
                         <th scope = "col">End date</th>
                         <th scope = "col">Description</th>
+                        <th scope = "col">Status</th>
                     </thead>
                     <tbody>
                         <tr>
@@ -55,25 +58,29 @@
                             <td><label for = "flexCheckDisabled"> -- </label></td>
                             <td><label for = "flexCheckDisabled"> -- </label></td>
                             <td><label for = "flexCheckDisabled"> -- </label></td>
+                            <td><label for = "flexCheckDisabled"> -- </label></td>
                         </tr>
                     </tbody>
                 </table>
             {% endif %}
-        </div>
-        <div class = "mb-3">
-            <div class = "container" style = "width: 25vw; margin: 0 auto;">
-                <div class = "row">
-                    <div class = "col-sm">
-                        <a class = "btn btn-primary" href = "/addTask"><i class = "fa-solid fa-plus"></i>    Add task</a>
-                    </div>
-                    <div class = "col-sm">
-                        <a class = "btn btn-primary" href = "/editTask"><i class = "fa-regular fa-pen-to-square"></i>   Edit task</a>
-                    </div>
-                    <div class="col-sm">
-                        <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-trash-can"></i> Delete task</button>
+            <div class = "mb-3">
+                <div class = "container" style = "width: 25vw; margin: 0 auto;">
+                    <div class = "row">
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary"><i class = "fa-solid fa-plus"></i>    Add task</button>
+                        </div>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary"><i class = "fa-regular fa-pen-to-square"></i>     Edit task</button>
+                        </div>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>
+                        </div>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}
