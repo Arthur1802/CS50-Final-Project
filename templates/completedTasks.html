@@ -9,7 +9,7 @@
         <h1>Completed Tasks</h1>
     </div>
     <div class = "mb-3">
-        <form action = "//taskManager/button_clicked" method = "POST">
+        <form action = "/taskManager/button_clicked" method = "POST">
             {% if completed_tasks %}
                 <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
                     <thead>
@@ -23,15 +23,17 @@
                     </thead>
                     <tbody>
                         {% for task in completed_tasks %}
-                            <tr>
-                                <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkDel" value = "{{ task.id }}"></td>
-                                <td>{{ task["title"] }}</td>
-                                <td>{{ task["dateCreation"] }}</td>
-                                <td>{{ task["dateStart"] }}</td>
-                                <td>{{ task["dateEnd"] }}</td>
-                                <td>{{ task["description"] }}</td>
-                                <td>{{ task["status"] }}</td>
-                            </tr>
+                            {% if task["status"] == "Completed" %}
+                                <tr>
+                                    <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkDel" value = "{{ task.id }}"></td>
+                                    <td>{{ task["title"] }}</td>
+                                    <td>{{ task["dateCreation"] }}</td>
+                                    <td>{{ task["dateStart"] }}</td>
+                                    <td>{{ task["dateEnd"] }}</td>
+                                    <td>{{ task["description"] }}</td>
+                                    <td>{{ task["status"] }}</td>
+                                </tr>
+                            {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>

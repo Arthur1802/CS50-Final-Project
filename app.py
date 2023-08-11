@@ -23,17 +23,63 @@ def after_request(response):
     return response
 
 
-@app.route('/')
+@app.route('/', methods = ['GET', 'POST'])
 @login_required
 def index():
-    user_id = session['user_id']
-
-    user_tasks = db.execute('''SELECT *
-                            FROM tasks
-                            WHERE user_id = ?
-                            ''', user_id)
+    def deleteTask(checked, user_id):
+        if not checked:
+            return apology('to delete a task, you must select a task', 403)
+        
+        for i in checked:
+            db.execute('''
+                       DELETE FROM tasks
+                       WHERE id = ?
+                       AND user_id = ?
+                       ''', i, user_id)
+            
+        flash('Task(s) deleted successfully')
     
-    return render_template('index.html', tasks = user_tasks)
+
+    def completeTask(checked, user_id):
+        if not checked:
+            return apology('to complete a task, you must select a task', 403)
+        
+        for i in checked:
+            db.execute('''
+                    UPDATE tasks
+                    SET status = 'COMPLETED'
+                    WHERE id = ?
+                    AND user_id = ?
+                    ''', i, user_id)
+            
+        flash('Task(s) completed successfully')
+
+
+    if request.method == 'POST':
+        user_id = session['user_id']
+        checkeDel = request.form.getlist('checkDel')
+        checkedComp = request.form.getlist('checkComp')
+
+        if checkeDel:
+            deleteTask(checkeDel, user_id)
+        
+        if checkedComp:
+            completeTask(checkedComp, user_id)
+
+        else:
+            return apology('you must select a task', 403)
+        
+        return redirect('/')
+    
+    else:    
+        user_id = session['user_id']
+
+        user_tasks = db.execute('''SELECT *
+                                FROM tasks
+                                WHERE user_id = ?
+                                ''', user_id)
+        
+        return render_template('index.html', tasks = user_tasks)
 
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -132,48 +178,12 @@ def logout():
     return redirect('/')
 
 
-@app.route('/taskManager/button_clicked', methods = ['POST'])
-@login_required
-def task_manager():
-    def CallAddTask():
-        addTask(session['user_id'])       
-
-
-    def CallEditTask():
-        editTask(session['user_id'])
-    
-
-    def CallDeleteTask():
-        checked = request.form.getlist('checkDel')
-        deleteTask(session['user_id'], checked)
-
-
-    def CallCompleteTask():
-        checked = request.form.getlist('checkComp')
-        completeTask(session['user_id'], checked)
-    
-
-    data = request.json.get('buttonClicked')
-    option = int(data)
-
-    if option == 1:
-        CallAddTask()
-
-    elif option == 2:
-        CallEditTask()
-
-    elif option == 3:
-        CallDeleteTask()
-
-    elif option == 4:
-        CallCompleteTask()
-
-
 @app.route('/addTask', methods = ['GET', 'POST'])
 @login_required
-def addTask(user_id):
+def addTask():
 
     if request.method == 'POST':
+        user_id = session['user_id']
         
         title = request.form.get('title')
         description = request.form.get('description')
@@ -220,26 +230,28 @@ def addTask(user_id):
 
 @app.route('/editTask', methods = ['GET', 'POST'])
 @login_required
-def editTask(user_id):
+def editTask():
+
     def updateTask(task_id, user_id, title, description, dateStart, dateEnd):
         db.execute('''
-            UPDATE tasks
-            SET title = ?,
-                description = ?,
-                dateStart = ?,
-                dateEnd = ?
-            WHERE (title != ? OR
-                  description != ? OR
-                  dateStart != ? OR
-                  dateEnd != ?) AND
-                  id = ? AND user_id = ?
-        ''', title, description, dateStart, dateEnd, task_id, title, description, dateStart, dateEnd, task_id, user_id)
-
+                    UPDATE tasks
+                    SET title = ?,
+                        description = ?,
+                        dateStart = ?,
+                        dateEnd = ?
+                    WHERE   id = ? AND user_id = ?
+                    WHERE   title != ? AND
+                            description != ? AND
+                            dateStart != ? AND
+                            dateEnd != ?
+                    ''', title, description, dateStart, dateEnd, task_id, user_id, title, description, dateStart, dateEnd)
         
         flash('Task edited successfully')
 
         
     if request.method == 'POST':
+
+        user_id = session['user_id']
 
         task_id = request.form.get('task')
     
@@ -290,45 +302,6 @@ def editTask(user_id):
                 
         return render_template('editTask.html', tasks = user_tasks)
 
-
-@app.route('/deleteTask', methods = ['GET', 'POST'])
-@login_required
-def deleteTask(user_id, checked):
-    if request.method == 'POST':
-        if not checked:
-            return apology('to delete a task, you must select a task', 403)
-        
-        for i in checked:
-            db.execute('''
-                       DELETE FROM tasks
-                       WHERE id = ?
-                       AND user_id = ?
-                       ''', i, user_id)
-            
-        flash('Task(s) deleted successfully')
-
-        return redirect('/')
-    
-
-@app.route('/completeTask', methods = ['GET', 'POST'])
-@login_required
-def completeTask(user_id, checked):
-    if request.method == 'POST':
-        if not checked:
-            return apology('to complete a task, you must select a task', 403)
-        
-        for i in checked:
-            db.execute('''
-                       UPDATE tasks
-                       SET status = 'COMPLETED'
-                       WHERE id = ?
-                       AND user_id = ?
-                       ''', i, user_id)
-            
-        flash('Task(s) completed successfully')
-
-        return redirect('/')
-        
 
 @app.route('/profile', methods = ['GET', 'POST'])
 @login_required
@@ -384,12 +357,6 @@ def profile():
             
             return render_template('profile.html', user_info = user_info)
         
-
-@app.route('/ws', methods = ['GET', 'POST', 'PUT', 'DELETE'])
-def catch_all():
-    app.logger.warning("Received a request to /ws: %s %s", request.method, request.url)
-    return apology("This endpoint is not available.", 404)
-
 
 if __name__ == '__main__':
     app.run()
