@@ -1,9 +1,8 @@
-import json
 import os
 from datetime import datetime
 
 from cs50 import SQL
-from flask import Flask, render_template, request, redirect, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, flash, session
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
 from helpers import apology, login_required
@@ -363,5 +362,8 @@ def profile():
             return render_template('profile.html', user_info = user_info)
         
 
-if __name__ == '__main__':
-    app.run(debug = True)
+@app.route('/ws', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def catch_all():
+    app.logger.warning("Received a request to /ws: %s %s", request.method, request.url)
+    return apology("This endpoint is not available.", 404)
+
