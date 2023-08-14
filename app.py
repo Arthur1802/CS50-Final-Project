@@ -69,7 +69,7 @@ def index():
         else:
             return apology('you must select a task', 403)
         
-        return redirect('/index')
+        return redirect('/')
     
     else:    
         user_id = session['user_id']
@@ -126,7 +126,7 @@ def register():
 
         flash(f'Welcome {name}')
 
-        return redirect('/index')
+        return redirect('/')
         
     else:
         return render_template('register.html')
@@ -164,7 +164,7 @@ def login():
         
         flash(f"Welcome {user_name[0]['name']}!")
 
-        return redirect('/index')
+        return redirect('/')
 
     else:
         return render_template('login.html')
@@ -175,7 +175,7 @@ def logout():
     
     session.clear()
 
-    return redirect('/index')
+    return redirect('/')
 
 
 @app.route('/addTask', methods = ['GET', 'POST'])
@@ -222,7 +222,7 @@ def addTask():
         
         flash('Task added successfully')
 
-        return redirect('/index')
+        return redirect('/')
 
     else:
         return render_template('addTask.html')
@@ -287,7 +287,7 @@ def editTask():
         if title or description or dateStart or dateEnd:
             updateTask(task_id, user_id, title, description, dateStart, dateEnd)
             
-        return redirect('/index')
+        return redirect('/')
 
     else:
         user_id = session['user_id']
@@ -346,7 +346,7 @@ def profile():
             
             flash('Profile edited successfully')
 
-            return redirect('/index')
+            return redirect('/')
         
         else:
             user_info = db.execute('''
