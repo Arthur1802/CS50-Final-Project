@@ -23,7 +23,7 @@ def after_request(response):
     return response
 
 
-@app.route('/', methods = ['GET', 'POST'])
+@app.route('/index', methods = ['GET', 'POST'])
 @login_required
 def index():
     def deleteTask(checked, user_id):
