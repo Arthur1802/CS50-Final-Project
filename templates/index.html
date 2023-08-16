@@ -4,7 +4,7 @@
     Tasks
 {% endblock %}
 
-{% block body %}
+{% block main %}
     <div class = "mb-3">
         <h1>Tasks</h1>
     </div>
@@ -66,17 +66,17 @@
             <div class = "mb-3">
                 <div class = "container" style = "width: 25vw; margin: 0 auto;">
                     <div class = "row">
-                        <div class = "col-sm">
-                            <button class = "btn btn-primary" href = "/addTask"><i class = "fa-solid fa-plus"></i>    Add task</button>
+                        <div class = "col">
+                            <button class = "btn btn-primary" href = "/addTask" target = "_blank"><i class = "fa-solid fa-plus"></i>    Add task</button>
                         </div>
-                        <div class = "col-sm">
-                            <button class = "btn btn-primary" href = "/editTask"><i class = "fa-regular fa-pen-to-square"></i>     Edit task</button>
+                        <div class = "col">
+                            <button class = "btn btn-primary" href = "/editTask" target = "_blank"><i class = "fa-regular fa-pen-to-square"></i>    Edit task</button>
                         </div>
-                        <div class = "col-sm">
+                        <div class = "col">
                             <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>
                         </div>
-                        <div class = "col-sm">
-                            <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-trash-can"></i>     Complete task</button>
+                        <div class = "col">
+                            <button class = "btn btn-primary" type = "submit"><i class="fa-regular fa-square-check"></i>     Complete task</button>
                         </div>
                     </div>
                 </div>
