@@ -363,5 +363,11 @@ def profile():
             return render_template('profile.html', user_info = user_info)
         
 
+@app.route('/completedTasks', methods = ['GET', 'POST'])
+@login_required
+def completedTasks():
+    return apology('TODO', 403)
+
+
 if __name__ == '__main__':
     app.run()
