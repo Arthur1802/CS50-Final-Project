@@ -10,73 +10,71 @@
     </div>
     <div class = "mb-3">
         <form action = "/" method = "POST">
-            {% if tasks %}
-                <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
-                    <thead>
-                        <th scope = "col"><i class = "fa-regular fa-square-check"></i></th>
-                        <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
-                        <th scope = "col">Title</th>
-                        <th scope = "col">Created on</th>
-                        <th scope = "col">Start date</th>
-                        <th scope = "col">End date</th>
-                        <th scope = "col">Description</th>
-                        <th scope = "col">Status</th>
-                    </thead>
-                    <tbody>
-                        {% for task in tasks %}
-                            <tr>
-                                <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkComp" value = "{{ task.id }}"></td>
-                                <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checkDel" value = "{{ task.id }}"></td>
-                                <td>{{ task["title"] }}</td>
-                                <td>{{ task["dateCreation"] }}</td>
-                                <td>{{ task["dateStart"] }}</td>
-                                <td>{{ task["dateEnd"] }}</td>
-                                <td>{{ task["description"] }}</td>
-                                <td>{{ task["status"] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            {% else %}
-                <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
-                    <thead>
-                        <th scope = "col"><i class="fa-regular fa-square-check"></i></th>
-                        <th scope = "col"><i class = "fa-regular fa-trash-can"></i></th>
-                        <th scope = "col">Title</th>
-                        <th scope = "col">Created on</th>
-                        <th scope = "col">Start date</th>
-                        <th scope = "col">End date</th>
-                        <th scope = "col">Description</th>
-                        <th scope = "col">Status</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "checkComp" value = "None"></td>
-                            <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "checkDel" value = "None"></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                            <td><label for = "flexCheckDisabled"> -- </label></td>
-                        </tr>
-                    </tbody>
-                </table>
-            {% endif %}
             <div class = "mb-3">
-                <div class = "container" style = "width: 25vw; margin: 0 auto;">
+                {% if tasks %}
+                    <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+                        <thead>
+                            <th scope = "col"></th>
+                            <th scope = "col">Title</th>
+                            <th scope = "col">Created on</th>
+                            <th scope = "col">Start date</th>
+                            <th scope = "col">End date</th>
+                            <th scope = "col">Description</th>
+                            <th scope = "col">Status</th>
+                        </thead>
+                        <tbody>
+                            {% for task in tasks %}
+                                <tr>
+                                    <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "check" value = "{{ task.id }}"></td>
+                                    <td>{{ task["title"] }}</td>
+                                    <td>{{ task["dateCreation"] }}</td>
+                                    <td>{{ task["dateStart"] }}</td>
+                                    <td>{{ task["dateEnd"] }}</td>
+                                    <td>{{ task["description"] }}</td>
+                                    <td>{{ task["status"] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
+                        <thead>
+                            <th scope = "col"></th>
+                            <th scope = "col">Title</th>
+                            <th scope = "col">Created on</th>
+                            <th scope = "col">Start date</th>
+                            <th scope = "col">End date</th>
+                            <th scope = "col">Description</th>
+                            <th scope = "col">Status</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "check" value = "None"></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+            <div class = "mb-3">
+                <div class = "container" style = "width: 50vw; margin: 0 auto;">
                     <div class = "row">
-                        <div class = "col">
-                            <button class = "btn btn-primary" href = "/addTask" target = "_blank"><i class = "fa-solid fa-plus"></i>    Add task</button>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary" href = "/addTask" target = "_blank" style = "white-space: nowrap;" name = "addBtn"><i class = "fa-solid fa-plus"></i>    Add task</button>
                         </div>
-                        <div class = "col">
-                            <button class = "btn btn-primary" href = "/editTask" target = "_blank"><i class = "fa-regular fa-pen-to-square"></i>    Edit task</button>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary" href = "/editTask" target = "_blank" style = "white-space: nowrap;" name = "editBtn"><i class = "fa-regular fa-pen-to-square"></i>    Edit task</button>
                         </div>
-                        <div class = "col">
-                            <button class = "btn btn-primary" type = "submit"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary" type = "submit" style = "white-space: nowrap;" name = "deleteBtn"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>
                         </div>
-                        <div class = "col">
-                            <button class = "btn btn-primary" type = "submit"><i class="fa-regular fa-square-check"></i>     Complete task</button>
+                        <div class = "col-sm">
+                            <button class = "btn btn-primary" type = "submit" style = "white-space: nowrap;" name = "completeBtn"><i class="fa-regular fa-square-check"></i>     Complete task</button>
                         </div>
                     </div>
                 </div>

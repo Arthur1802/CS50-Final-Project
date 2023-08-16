@@ -57,14 +57,19 @@ def index():
 
     if request.method == 'POST':
         user_id = session['user_id']
-        checkeDel = request.form.getlist('checkDel')
-        checkedComp = request.form.getlist('checkComp')
-
-        if checkeDel:
-            deleteTask(checkeDel, user_id)
+        checked = request.form.getlist('checked')
         
-        if checkedComp:
-            completeTask(checkedComp, user_id)
+        if 'addBtn' in request.form:
+            return redirect('/addTask')
+        
+        if 'editBtn' in request.form:
+            return redirect('/editTask')
+        
+        if 'deleteBtn' in request.form:
+            deleteTask(checked, user_id)
+        
+        if 'completeBtn' in request.form:
+            completeTask(checked, user_id)
 
         else:
             return apology('you must select a task', 403)
