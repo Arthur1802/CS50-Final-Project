@@ -22,13 +22,15 @@ nav .navbar-brand .green
     color: #2e944b;
 }
 
-#passwd_input, #confPasswd_input {
+#passwd_input, #confPasswd_input
+{
   position: relative;
   cursor: text;
   width: fit-content;
 }
 
-#passwd_input i {
+#passwd_input i
+{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -37,7 +39,8 @@ nav .navbar-brand .green
   color: #707071;
 }
 
-#confPasswd_input i {
+#confPasswd_input i
+{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -46,7 +49,8 @@ nav .navbar-brand .green
   color: #707071;
 }
 
-#passwd, #confPasswd {
+#passwd, #confPasswd
+{
     border-color: transparent;
     outline: none;
     padding: 0;
@@ -54,10 +58,12 @@ nav .navbar-brand .green
     right: -50px;
 }
 
-#prof_btn {
+#prof_btn
+{
     width: 150px;
 }
-#profile_pic {
+#profile_pic
+{
     width: 300px;
     height: 300px;
     cursor: pointer;
