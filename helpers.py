@@ -38,3 +38,11 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
+
+def dateForm(year, month, day):
+    if year.isdigit() and month.isdigit() and day.isdigit():
+        result = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+    else:
+        result = None
+    
+    return result

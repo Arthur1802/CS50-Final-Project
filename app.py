@@ -5,7 +5,7 @@ from cs50 import SQL
 from flask import Flask, render_template, request, redirect, flash, session
 from flask_session import Session
 from werkzeug.security import generate_password_hash, check_password_hash
-from helpers import apology, login_required
+from helpers import apology, login_required, dateForm
 
 app = Flask(__name__)
 
@@ -268,7 +268,7 @@ def editTask():
         day1 = request.form.get('day1')
         
         if day1 != 'Day' and month1 != 'Month' and year1 != 'Year':
-            dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
+            dateStart = dateForm(year1, month1, day1)
         
         else:
             dateStart = None
@@ -278,7 +278,7 @@ def editTask():
         day2 = request.form.get('day2')
         
         if day2 != 'Day' and month2 != 'Month' and year2 != 'Year':
-            dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
+            dateEnd = dateForm(year2, month2, day2)
 
         else:
             dateEnd = None
