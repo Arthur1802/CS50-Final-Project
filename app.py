@@ -60,10 +60,10 @@ def index():
         checked = request.form.getlist('checked')
         
         if 'addBtn' in request.form:
-            return redirect('/addTask')
+            addTask()
         
         if 'editBtn' in request.form:
-            return redirect('/editTask')
+            editTask()
         
         if 'deleteBtn' in request.form:
             deleteTask(checked, user_id)
