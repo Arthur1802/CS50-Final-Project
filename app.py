@@ -267,7 +267,7 @@ def editTask():
         month1 = request.form.get('month1')
         day1 = request.form.get('day1')
         
-        if day1 != 'Day' and month1 != 'Month' and year1 != 'Year':
+        if day1 != None and month1 != None and year1 != None:
             dateStart = dateForm(year1, month1, day1)
         
         else:
@@ -277,7 +277,7 @@ def editTask():
         month2 = request.form.get('month2')
         day2 = request.form.get('day2')
         
-        if day2 != 'Day' and month2 != 'Month' and year2 != 'Year':
+        if day2 != None and month2 != None and year2 != None:
             dateEnd = dateForm(year2, month2, day2)
 
         else:
