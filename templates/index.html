@@ -24,15 +24,17 @@
                         </thead>
                         <tbody>
                             {% for task in tasks %}
-                                <tr>
-                                    <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "check" value = "{{ task.id }}"></td>
-                                    <td>{{ task["title"] }}</td>
-                                    <td>{{ task["dateCreation"] }}</td>
-                                    <td>{{ task["dateStart"] }}</td>
-                                    <td>{{ task["dateEnd"] }}</td>
-                                    <td>{{ task["description"] }}</td>
-                                    <td>{{ task["status"] }}</td>
-                                </tr>
+                                {% if task.status != "COMPLETED" %}
+                                    <tr>
+                                        <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checked" value = "{{ task.id }}"></td>
+                                        <td>{{ task["title"] }}</td>
+                                        <td>{{ task["dateCreation"] }}</td>
+                                        <td>{{ task["dateStart"] }}</td>
+                                        <td>{{ task["dateEnd"] }}</td>
+                                        <td>{{ task["description"] }}</td>
+                                        <td>{{ task["status"] }}</td>
+                                    </tr>
+                                {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -50,12 +52,12 @@
                         <tbody>
                             <tr>
                                 <td><input class = "form-check-input" disabled id = "flexCheckDisabled" type = "checkbox" name = "checked" value = "None"></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
-                                <td><label for = "flexCheckDisabled"> -- </label></td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
                             </tr>
                         </tbody>
                     </table>
@@ -65,10 +67,10 @@
                 <div class = "container" style = "width: 50vw; margin: 0 auto;">
                     <div class = "row">
                         <div class = "col-sm">
-                            <button class = "btn btn-primary" type = "submit" style = "white-space: nowrap;" name = "addBtn"><i class = "fa-solid fa-plus"></i>    Add task</button>
+                            <button class = "btn btn-primary" href = "/addTask" style = "white-space: nowrap;" name = "addBtn"><i class = "fa-solid fa-plus"></i>    Add task</button>
                         </div>
                         <div class = "col-sm">
-                            <button class = "btn btn-primary" type = "submit" style = "white-space: nowrap;" name = "editBtn"><i class = "fa-regular fa-pen-to-square"></i>    Edit task</button>
+                            <button class = "btn btn-primary" href = "editTask" style = "white-space: nowrap;" name = "editBtn"><i class = "fa-regular fa-pen-to-square"></i>    Edit task</button>
                         </div>
                         <div class = "col-sm">
                             <button class = "btn btn-primary" type = "submit" style = "white-space: nowrap;" name = "deleteBtn"><i class = "fa-regular fa-trash-can"></i>     Delete task</button>

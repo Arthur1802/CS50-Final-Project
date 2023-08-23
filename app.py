@@ -199,10 +199,10 @@ def addTask():
         year2 = request.form.get('year2')
         month2 = request.form.get('month2')
         day2 = request.form.get('day2')
-        dateStart = f"{year1}-{month1.zfill(2)}-{day1.zfill(2)}"
-        dateEnd = f"{year2}-{month2.zfill(2)}-{day2.zfill(2)}"
-        fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date()
-        fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date()
+        dateStart = dateForm(year1, month1, day1) if year1 != None and month1 != None and day1 != None else None
+        dateEnd = dateForm(year2, month2, day2) if year2 != None and month2 != None and day2 != None else None
+        fDateStart = datetime.strptime(dateStart, '%Y-%m-%d').date() if dateStart != None else None
+        fDateEnd = datetime.strptime(dateEnd, '%Y-%m-%d').date() if dateEnd != None else None
         status = 'ON GOING'
 
         if not title:
@@ -366,7 +366,41 @@ def profile():
 @app.route('/completedTasks', methods = ['GET', 'POST'])
 @login_required
 def completedTasks():
-    return apology('TODO', 403)
+    def deleteTask(checked, user_id):
+        if not checked:
+            return apology('to delete a task, you must select a task', 403)
+        
+        for i in checked:
+            db.execute('''
+                       DELETE FROM tasks
+                       WHERE id = ?
+                       AND user_id = ?
+                       ''', i, user_id)
+            
+        flash('Task(s) deleted successfully')
+
+    
+    user_id = session['user_id']
+
+    if request.method == 'POST':
+        checked = request.form.getlist('checked')
+        deleteTask(checked, user_id)
+
+        return redirect('/completedTasks')
+
+    else:
+        completed_tasks = db.execute('''
+                                    SELECT *
+                                    FROM tasks
+                                    WHERE user_id = ?
+                                    AND status = 'COMPLETED'
+                                    ''', user_id)
+        
+        if completed_tasks == []:
+            return apology('you have no completed tasks', 403)
+        
+        return render_template('completedTasks.html', tasks = completed_tasks)
+
 
 
 if __name__ == '__main__':
