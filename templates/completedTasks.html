@@ -12,7 +12,6 @@
         {% if tasks %}
             <table class = "table table-stripped" style = "width: 50vw; margin: 0 auto;">
                 <thead>
-                    <th scope = "col"></th>
                     <th scope = "col">Title</th>
                     <th scope = "col">Created on</th>
                     <th scope = "col">Start date</th>
@@ -23,7 +22,6 @@
                 <tbody>
                     {% for task in tasks %}
                         <tr>
-                            <td><input class = "form-check-input" id = "{{ task.title }}" type = "checkbox" name = "checked" value = "{{ task.id }}"></td>
                             <td>{{ task["title"] }}</td>
                             <td>{{ task["dateCreation"] }}</td>
                             <td>{{ task["dateStart"] }}</td>
