@@ -366,41 +366,19 @@ def profile():
 @app.route('/completedTasks', methods = ['GET', 'POST'])
 @login_required
 def completedTasks():
-    def deleteTask(checked, user_id):
-        if not checked:
-            return apology('to delete a task, you must select a task', 403)
-        
-        for i in checked:
-            db.execute('''
-                       DELETE FROM tasks
-                       WHERE id = ?
-                       AND user_id = ?
-                       ''', i, user_id)
-            
-        flash('Task(s) deleted successfully')
-
-    
     user_id = session['user_id']
 
-    if request.method == 'POST':
-        checked = request.form.getlist('checked')
-        deleteTask(checked, user_id)
-
-        return redirect('/completedTasks')
-
-    else:
-        completed_tasks = db.execute('''
-                                    SELECT *
-                                    FROM tasks
-                                    WHERE user_id = ?
-                                    AND status = 'COMPLETED'
-                                    ''', user_id)
-        
-        if completed_tasks == []:
-            return apology('you have no completed tasks', 403)
-        
-        return render_template('completedTasks.html', tasks = completed_tasks)
-
+    completed_tasks = db.execute('''
+                                SELECT *
+                                FROM tasks
+                                WHERE user_id = ?
+                                AND status = 'COMPLETED'
+                                ''', user_id)
+    
+    if completed_tasks == []:
+        return apology('you have no completed tasks', 403)
+    
+    return render_template('completedTasks.html', tasks = completed_tasks)
 
 
 if __name__ == '__main__':
