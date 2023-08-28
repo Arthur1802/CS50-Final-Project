@@ -58,13 +58,7 @@ def index():
     if request.method == 'POST':
         user_id = session['user_id']
         checked = request.form.getlist('checked')
-        
-        if 'addBtn' in request.form:
-            addTask()
-        
-        if 'editBtn' in request.form:
-            editTask()
-        
+
         if 'deleteBtn' in request.form:
             deleteTask(checked, user_id)
         
@@ -79,10 +73,13 @@ def index():
     else:    
         user_id = session['user_id']
 
+        status = 'ON GOING'
+
         user_tasks = db.execute('''SELECT *
                                 FROM tasks
                                 WHERE user_id = ?
-                                ''', user_id)
+                                AND status LIKE ?
+                                ''', user_id, status)
         
         return render_template('index.html', tasks = user_tasks)
 
