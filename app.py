@@ -300,7 +300,7 @@ def editTask():
         if user_tasks == []:
             return apology('you have no tasks to edit', 403)
                 
-        return render_template('editTask.html', tasks = user_tasks)
+        return render_template('editTask.html')
 
 
 @app.route('/completedTasks', methods = ['GET', 'POST'])
