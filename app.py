@@ -237,14 +237,21 @@ def editTask():
     def updateTask(task_id, user_id, title, description, dateStart, dateEnd):
         db.execute('''
                     UPDATE tasks
-                    SET title = ?,
-                        description = ?,
-                        dateStart = ?,
-                        dateEnd = ?
+                    SET title = CASE WHEN ? IS NOT NULL THEN ? ELSE title END,
+                        description = CASE WHEN ? IS NOT NULL THEN ? ELSE description END,
+                        dateStart = CASE WHEN ? IS NOT NULL THEN ? ELSE dateStart END,
+                        dateEnd = CASE WHEN ? IS NOT NULL THEN ? ELSE dateEnd END
                     WHERE id = ? AND user_id = ?
-                        AND (title != ? OR description != ? OR dateStart != ? OR dateEnd != ?)
-                    ''', title, description, dateStart, dateEnd, task_id, user_id, title, description, dateStart, dateEnd)
-    
+                        AND (
+                            ? IS NOT NULL AND title != ? OR
+                            ? IS NOT NULL AND description != ? OR
+                            ? IS NOT NULL AND dateStart != ? OR
+                            ? IS NOT NULL AND dateEnd != ?
+                        )
+                    ''', title, title, description, description, dateStart, dateStart, dateEnd, dateEnd,
+                    task_id, user_id,
+                    title, title, description, description, dateStart, dateStart, dateEnd, dateEnd)
+
         flash('Task edited successfully')
 
 
@@ -261,6 +268,9 @@ def editTask():
         year1 = request.form.get('year1')
         month1 = request.form.get('month1')
         day1 = request.form.get('day1')
+
+        if title == '':
+            title = None
         
         if day1 != None and month1 != None and year1 != None:
             dateStart = dateForm(year1, month1, day1)
@@ -284,7 +294,7 @@ def editTask():
         if not title and not description and not dateStart and not dateEnd or description == 'Description':
             return apology('must provide at least one field to edit', 403)
         
-        if title or description or dateStart or dateEnd:
+        if title != None or description != None or dateStart != None or dateEnd != None:
             updateTask(task_id, user_id, title, description, dateStart, dateEnd)
             
         return redirect('/')
