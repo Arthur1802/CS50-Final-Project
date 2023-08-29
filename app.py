@@ -62,7 +62,7 @@ def index():
         if 'deleteBtn' in request.form:
             deleteTask(checked, user_id)
         
-        if 'completeBtn' in request.form:
+        elif 'completeBtn' in request.form:
             completeTask(checked, user_id)
 
         else:
