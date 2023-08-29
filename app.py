@@ -305,61 +305,6 @@ def editTask():
         return render_template('editTask.html', tasks = user_tasks)
 
 
-# @app.route('/profile', methods = ['GET', 'POST'])
-# @login_required
-# def profile():
-        
-#         user_id = session['user_id']
-        
-#         if request.method == 'POST':
-#             name = request.form.get('name')
-#             email = request.form.get('email')
-#             password = request.form.get('password')
-#             confirmation = request.form.get('confirmation')
-#             day = request.form.get('day')
-#             month = request.form.get('month')
-#             year = request.form.get('year')
-
-#             if not name and not email and not password and not day and not month and not year:
-#                 return apology('must provide at least one field to edit', 403)
-            
-#             if password:
-#                 if password != confirmation:
-#                     return apology('passwords do not match', 403)
-                
-#                 else:
-#                     password = generate_password_hash(password)
-
-#             if day != 'Day' and month != 'Month' and year != 'Year':
-#                 fBirthDate = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
-            
-#             db.execute('''
-#                         UPDATE users
-#                         SET name = ?,
-#                             email = ?,
-#                             hashed_password = ?,
-#                             birthDate = ?
-#                         WHERE id = ? AND
-#                         name != ? OR
-#                         email != ? OR
-#                         hashed_password != ? OR
-#                         birthDate != ?
-#                         ''', name, email, password, fBirthDate, user_id, name, email, password, fBirthDate)
-            
-#             flash('Profile edited successfully')
-
-#             return redirect('/')
-        
-#         else:
-#             user_info = db.execute('''
-#                                       SELECT *
-#                                       FROM users
-#                                       WHERE id = ?
-#                                       ''', user_id)
-            
-#             return render_template('profile.html', user_info = user_info)
-        
-
 @app.route('/completedTasks', methods = ['GET', 'POST'])
 @login_required
 def completedTasks():
