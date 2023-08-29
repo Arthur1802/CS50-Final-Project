@@ -245,7 +245,7 @@ def editTask():
                         AND (title != ? OR description != ? OR dateStart != ? OR dateEnd != ?)
                     ''', title, description, dateStart, dateEnd, task_id, user_id, title, description, dateStart, dateEnd)
     
-    flash('Task edited successfully')
+        flash('Task edited successfully')
 
 
         
@@ -293,14 +293,16 @@ def editTask():
         user_id = session['user_id']
 
         user_tasks = db.execute('''SELECT *
-                                FROM tasks
-                                WHERE user_id = ?
-                                ''', user_id)
+                          FROM tasks
+                          WHERE user_id = ? AND
+                                status = 'ON GOING'
+                          ''', user_id)
+
         
         if user_tasks == []:
             return apology('you have no tasks to edit', 403)
                 
-        return render_template('editTask.html')
+        return render_template('editTask.html', tasks = user_tasks)
 
 
 @app.route('/completedTasks', methods = ['GET', 'POST'])
