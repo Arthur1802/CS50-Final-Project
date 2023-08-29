@@ -241,14 +241,12 @@ def editTask():
                         description = ?,
                         dateStart = ?,
                         dateEnd = ?
-                    WHERE   id = ? AND user_id = ?
-                    WHERE   title != ? AND
-                            description != ? AND
-                            dateStart != ? AND
-                            dateEnd != ?
+                    WHERE id = ? AND user_id = ?
+                        AND (title != ? OR description != ? OR dateStart != ? OR dateEnd != ?)
                     ''', title, description, dateStart, dateEnd, task_id, user_id, title, description, dateStart, dateEnd)
-        
-        flash('Task edited successfully')
+    
+    flash('Task edited successfully')
+
 
         
     if request.method == 'POST':
