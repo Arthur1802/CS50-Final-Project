@@ -11,10 +11,10 @@
     <div class = "mb-3">
         <form action = "/editTask" method = "POST">
             {% for t in tasks %}
-                <div class = "mb3">
+                <div class = "mb-3">
                     <select class = "form-select" name = "task" placeholder = "Task" style = "width: 24vw; margin: 0 auto;">
                         <option value = "" selected>Task</option>
-                        {% for task in user_tasks %}
+                        {% for task in tasks %}
                             <option value = "{{ task.id }}">{{ task["title"] }}</option>
                         {% endfor %}
                     </select>
