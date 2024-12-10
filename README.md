@@ -3,7 +3,7 @@ TASK TRACKER
 #### Description: In this video, I present my final project for the CS50 Introduction to Computer Science 2023 course.
 
 Static folder:
-In this folder, there are two archives: style.css and favicon.ico.
+In this folder, there are two files: style.css and favicon.ico.
 
 style.css - This file contains the CSS portion of my projetc.
 favicon.ico - This is the main icon for my webpages.
@@ -29,10 +29,10 @@ register.html - This page displays a form for the user to fill so that a user ca
 
 -- CLOSE FOLDER --
 
-app.py - This is the main python file. In here, all of the different functions are handled. It is also where the database is maneged.
+app.py - This is the main python file. In here, all of the different functions are handled. It is also where the database is managed.
 
-db_manegement.py - This is a file I created to be able to keep track of what was being saved in the database.
+db_management.py - This is a file I created to be able to keep track of what was being saved in the database.
 
-helpers.py - This is a page with secondary functions for my flaks application. Very similar to the helpers file in the finance exercise.
+helpers.py - This is a page with secondary functions for my flask application. Very similar to the helpers file in the finance exercise.
 
 tasktracker.db - This file stores the database used in this project. It contains 2 tables (users and tasks).
